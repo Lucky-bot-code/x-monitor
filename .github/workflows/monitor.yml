@@ -2,10 +2,8 @@ name: X 名人发言监控
 
 on:
   schedule:
-    # 每 10 分钟跑一次 (UTC 时间)
-    # 避免整点撞车，选 3,13,23,33,43,53 分
     - cron: '3,13,23,33,43,53 * * * *'
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   monitor:
@@ -20,7 +18,10 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install httpx
+        run: pip install twikit httpx
 
       - name: Run X monitor
+        env:
+          X_AUTH_TOKEN: ${{ secrets.X_AUTH_TOKEN }}
+          X_CT0: ${{ secrets.X_CT0 }}
         run: python monitor.py
