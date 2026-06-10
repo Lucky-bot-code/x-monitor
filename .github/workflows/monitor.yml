@@ -20,7 +20,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install twikit httpx
+        run: pip install httpx
 
       - name: Run X monitor
         run: python monitor.py
