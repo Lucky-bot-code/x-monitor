@@ -1,0 +1,26 @@
+name: X 名人发言监控
+
+on:
+  schedule:
+    # 每 10 分钟跑一次 (UTC 时间)
+    # 避免整点撞车，选 3,13,23,33,43,53 分
+    - cron: '3,13,23,33,43,53 * * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install twikit httpx
+
+      - name: Run X monitor
+        run: python monitor.py
