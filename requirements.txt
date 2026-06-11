@@ -1,2 +1,2 @@
-twikit>=2.3.0
 httpx>=0.25.0
+playwright>=1.60.0
